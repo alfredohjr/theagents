@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Agents</title>
+</head>
+<body class="bg-blue-200 min-h-screen">
+    <div class="">
+        <div class="w-full bg-blue-400 text-white text-center py-2">
+            <div class="text-3xl">Agents</div>
+        </div>
+        <div class="flex min-h-screen w-full justify-center bg-blue-200 py-2">
+            <div class="divByAgents min-h-screen w-2/3 bg-blue-300 px-4 py-2 text-white">
+                {% for agent in agents %}
+                    <details open
+                    class="mt-2"
+                    >
+                    <summary class="mb-2">
+                    <strong class="mr-1">Name:</strong>{{ agent.name }}
+                    <hr />
+                    <div class="text-xs flex">
+                        <div class="w-8/12">
+                            <div><strong class="mr-1">Description:</strong>{{ agent.description }}</div>
+                            <div><strong class="mr-1">Active:</strong>{{ agent.active }}</div>
+                            <div><strong class="mr-1">Prompt:</strong>{{ agent.prompt }}</div>
+                            <div><strong class="mr-1">Date creation:</strong>{{ agent.createAt }}</div>
+                            <div><strong class="mr-1">Last modification:</strong>{{ agent.updatedAt }}</div>
+                        </div>
+                        <div class="w-4/12">
+                            <div class="flex w-full justify-end">
+                                <div class="py-1 mr-4">
+                                    <button class="rounded-md bg-blue-400 py-1 px-2 text-xs font-bold">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </summary>
+                <hr class="mb-2" />
+                {% for chat in chats %}
+                    {% if agent.id == chat.agent.id %}
+                        <div class="mt-2 mx-2 rounded-lg bg-blue-400 p-2 text-sm">
+                        <div><strong class="mr-1">Name:</strong><a href="/agents/chat/{{ chat.id }}">{{ chat.name }}</a></div>
+                        <div><strong class="mr-1">Date creation:</strong>{{ chat.createAt }}</div>
+                        <div><strong class="mr-1">Last modification:</strong>{{ chat.updatedAt }}</div>
+                        <div><strong class="mr-1">User:</strong>{{ chat.user.username }}</div>
+                        <hr />
+                        <div><strong class="mr-1">Prompt:</strong>{{ chat.promptParams }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </details>
+            {% endfor %}
+            </div>
+        </div>
+        
+        <div class="fixed bottom-0 right-0 w-full p-2">
+            <div class="flex items-center justify-end">
+                <div class="m-1 rounded-full bg-blue-400 p-4">
+                    <button class="rounded-full text-white w-8 h-8">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

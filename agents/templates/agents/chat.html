@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <title>Chat</title>
+</head>
+<body>
+    <div class="w-full bg-blue-400 text-white text-center py-2">
+        <div class="text-3xl">Chat</div>
+    </div>
+    <div class="flex min-h-screen w-full justify-center bg-blue-200">
+        <div class="my-2 w-2/3 rounded-lg bg-blue-300 px-8">
+          <div class="mt-2 rounded-lg bg-blue-300 text-white p-2 text-sm shadow-md">
+            <div><strong class="mr-1">Name:</strong>{{ chat.name }} [{{ chat.agent.name }}]</div>
+            <div><strong class="mr-1">User:</strong>{{ chat.user.username }}</div>
+            <div><strong class="mr-1">Date creation:</strong>{{ chat.createAt }}</div>
+            <div><strong class="mr-1">Last modification:</strong>{{ chat.updatedAt }}</div>
+            <hr>
+            <div><strong class="mr-1">Prompt:</strong>{{ chat.promptParams }}</div>
+          </div>
+          <div class="pb-16">
+            {% for d in data %}
+                <div 
+                class="my-4 w-full rounded-lg bg-blue-400 p-2 text-white {% if d.origin == 'USR' %}text-left{% else %}text-right{% endif %}"
+                >
+                <div class="mb-1 text-xs">
+                    {% if d.origin == 'USR' %}
+                        {% if chat.user %} {{ chat.user.username }} {% else %} User {% endif %}
+                    {% else %}
+                        {{ chat.agent.name }}
+                    {% endif %}
+                    - 
+                    {{ d.createAt }}</div>
+                <hr>
+                <div>
+                    {{ d.data }}
+                </div>
+                </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+      <div class="fixed bottom-0 w-full p-2">
+        <div class="flex items-center justify-center">
+          <div class="flex m-2 w-2/3 rounded-lg bg-white px-4 py-2">
+            <div class="w-11/12">
+                <input 
+                    type="text" 
+                    name="message" 
+                    id="message" 
+                    class="w-full outline-none"
+                    />    
+            </div>
+            <div class="w-1/12 text-right">
+                <i class="icon-caret-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+</html>
